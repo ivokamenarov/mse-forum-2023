@@ -1,13 +1,20 @@
-import { CircularProgress, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button } from '@mui/material';
+import { CircularProgress, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Stack, Pagination } from '@mui/material';
 import useFetch from './useFetch';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 
 export default function AllTopicsPage() {
+    const [searchParams] = useSearchParams();
+    const page = searchParams.get('page') || 0;
+    const navigate = useNavigate();
     
-    const {data, loading} = useFetch('/topics')
+    const {data, loading} = useFetch(`/topics?page=${page}`)
 
     if (loading) {
         return <CircularProgress />
+    }
+
+    const onChangePage = (event, page) => {
+        navigate(`/topics?page=${page - 1}`)
     }
 
     return <>
@@ -40,5 +47,8 @@ export default function AllTopicsPage() {
             </TableBody>
             </Table>
         </TableContainer>
+        <Stack spacing={2}>
+            <Pagination page={page} onChange={onChangePage} count={5} shape="rounded" />
+        </Stack>
     </>;
   }
