@@ -1,15 +1,15 @@
 import {useEffect, useState} from 'react';
 import api from '../services/api'
 
-export default (type, url, body = {}) => {
+export default (url) => {
 
     const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState()
 
     useEffect(() => {
         setLoading(true);
-        api[type](url, body)
+        api.get(url)
             .then((response) => {
                 setData(response.data);
             })
@@ -19,7 +19,7 @@ export default (type, url, body = {}) => {
             .finally(() => {
                 setLoading(false);
             });
-    }, []);
+    }, [url]);
 
     return(
         {data, loading, error}

@@ -1,9 +1,10 @@
-import { CircularProgress, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
+import { CircularProgress, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button } from '@mui/material';
 import useFetch from './useFetch';
+import { Link } from 'react-router-dom';
 
 export default function AllTopicsPage() {
     
-    const {data, loading} = useFetch('get', '/topics')
+    const {data, loading} = useFetch('/topics')
 
     if (loading) {
         return <CircularProgress />
@@ -11,6 +12,7 @@ export default function AllTopicsPage() {
 
     return <>
         <h1>All Topics</h1>
+        <Button variant="contained" component={Link} to='/topics/add'>Add Topic</Button>
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
@@ -22,13 +24,13 @@ export default function AllTopicsPage() {
                 </TableRow>
             </TableHead>
             <TableBody>
-                {data.map((row, index) => (
+                {data.map((row) => (
                     <TableRow
-                        key={index}
+                        key={row.id}
                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
                         <TableCell component="th" scope="row">
-                        {row.title}
+                        <Link to={'/topics/' + row.id}>{row.title}</Link>
                         </TableCell>
                         <TableCell align="right">{row.userId}</TableCell>
                         <TableCell align="right">{row.replies.length}</TableCell>
