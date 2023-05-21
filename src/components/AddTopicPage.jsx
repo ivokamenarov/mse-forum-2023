@@ -1,6 +1,6 @@
 import { Button, TextField } from "@mui/material";
 import { useState } from "react";
-import {useNavigate} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import api from '../services/api'
 
 export default () => {
@@ -30,6 +30,7 @@ export default () => {
                 fullWidth
                 value={title}/>
             <Button variant="contained" type="submit">Submit</Button>
+            <Button variant="contained" component={Link} to="/topics">Cancel</Button>
         </form>
     )
 }

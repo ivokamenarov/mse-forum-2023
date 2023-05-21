@@ -8,7 +8,6 @@ export default (url) => {
     const [error, setError] = useState()
 
     useEffect(() => {
-        setLoading(true);
         api.get(url)
             .then((response) => {
                 setData(response.data);

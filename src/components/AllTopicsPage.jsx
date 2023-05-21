@@ -24,17 +24,17 @@ export default function AllTopicsPage() {
                 </TableRow>
             </TableHead>
             <TableBody>
-                {data.map((row) => (
+                {data.map((topic) => (
                     <TableRow
-                        key={row.id}
+                        key={topic.id}
                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
                         <TableCell component="th" scope="row">
-                        <Link to={'/topics/' + row.id}>{row.title}</Link>
+                        <Link to={'/topics/' + topic.id}>{topic.title}</Link>
                         </TableCell>
-                        <TableCell align="right">{row.userId}</TableCell>
-                        <TableCell align="right">{row.replies.length}</TableCell>
-                        <TableCell align="right">{row.createdAt}</TableCell>
+                        <TableCell align="right">{topic.userId}</TableCell>
+                        <TableCell align="right">{topic.replies.length}</TableCell>
+                        <TableCell align="right">{topic.createdAt}</TableCell>
                     </TableRow>
                 ))}
             </TableBody>
